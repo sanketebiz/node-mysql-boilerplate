@@ -1,14 +1,16 @@
-import express from "express";
-import { config } from "dotenv";
-const app = express();
-config();
+import express, { Application } from 'express'
+import { config } from 'dotenv'
+import home from './routes/home.route'
+const app: Application = express()
+config()
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8000
 
-app.get("/", (req, res) => {
-  res.send("success");
-});
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+app.use(home)
 
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port}.`);
-});
+  console.log(`Server is listening on port ${port}.`)
+})
